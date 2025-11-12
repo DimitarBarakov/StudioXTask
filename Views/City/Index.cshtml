@@ -1,0 +1,65 @@
+﻿@model List<City>
+<h2>Списък с градове</h2>
+<table class="table table-striped table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>Град</th>
+            <th>Държава</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var c in Model)
+        {
+            <tr>
+                <td>
+                    <div class="d-flex justify-content-between align-items-center">
+                        @c.Name 
+                        @{
+                            if (User.Identity.IsAuthenticated)
+                            {
+                                <a asp-controller="City" asp-action="Edit" asp-route-id="@c.Id" class="btn btn-danger">Edit</a>
+                            }
+                        }
+                    </div>
+                </td>
+                <td>
+                    <div class="d-flex justify-content-between align-items-center">
+                        @c.Country.Name
+                        @{
+                            if (User.Identity.IsAuthenticated)
+                            {
+                                <a asp-controller="Country" asp-action="Edit" asp-route-id="@c.CountryId" class="btn btn-danger">Edit</a>
+                            }
+                         }
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<nav >
+    <ul class="pagination">
+        @for (int i = 1; i <= ViewBag.TotalPages; i++)
+        {
+            if (i == ViewBag.CurrentPage)
+            {
+                <li class="page-item active"><span class="page-link">@i</span></li>
+            }
+            else
+            {
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("Index", new { page = i })">@i</a>
+                </li>
+            }
+        }
+    </ul>
+</nav>
+@{
+    if (User.Identity.IsAuthenticated)
+    {
+        <div class="container button-add">
+            <a asp-controller="City" asp-action="Add" class="btn btn-danger btn-lg float-right">Add City</a>
+        </div>
+    }
+}
+

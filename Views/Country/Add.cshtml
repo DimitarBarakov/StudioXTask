@@ -1,0 +1,16 @@
+﻿@using StudioXFirstTask.ViewModels.Country
+
+@model CountryFormViewModel
+
+<form asp-action="Add">
+    <div class="form-group">
+        <label asp-for="@Model.Name"></label>
+        <input asp-for="@Model.Name" class="form-control" />
+        <span asp-validation-for="@Model.Name" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Add</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
